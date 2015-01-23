@@ -53,6 +53,16 @@ describe(Stylist) do
     end
   end
 
+  describe('#clients') do
+    it("returns array of all clients (objects) belong to this stylist") do
+      stylist1 = Stylist.new({ :name => "Mike" })
+      stylist1.save()
+      client1 = Client.new({ :name => "Marion", :stylist_id => stylist1.id() })
+      client2 = Client.new({ :name => "James" })
+      expect(stylist1.clients()).to(eq([client1]))
+    end
+  end
+
 
 
 

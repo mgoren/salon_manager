@@ -45,3 +45,25 @@ delete("/clients") do
   end
   redirect("/")
 end
+
+get("/stylists/:id") do
+  @stylist_id = params.fetch('id').to_i()
+  erb(:stylist)
+end
+
+get("/clients/:id") do
+  @client_id = params.fetch('id').to_i()
+  erb(:client)
+end
+
+post("/stylists/:id") do
+  stylist_id = params.fetch('id').to_i()
+  returned_client_id = params['client_id']
+  if returned_client_id != nil
+    client = Client.find(returned_client_id.to_i())
+    client.update({ :stylist_id => stylist_id })
+    url = "/stylists/" + stylist_id.to_s()
+    redirect(url)
+  end
+end
+

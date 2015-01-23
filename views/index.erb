@@ -38,8 +38,6 @@
     <button type="submit" class="button button-add">Add Stylist</button>
 </form>
 
-<hr>
-
 <form action="/clients" method="POST">
   <div class="form-group">
     <label class = "form-label" for="client_name">Add Client:</label>
@@ -48,8 +46,11 @@
   <button type="submit" class="button button-add">Add Client</button>
 </form>
 
-<% if Stylist.all().any?() %>
+<% if Stylist.all().any?() || Client.all().any?() %>
   <hr>
+<% end %>
+
+<% if Stylist.all().any?() %>
   <form action="/stylists" method="POST">
     <input name="_method" type="hidden" value="delete">
     <div class="form-group">
@@ -66,7 +67,6 @@
 <% end %>
 
 <% if Client.all().any?() %>
-  <hr>
   <form action="/clients" method="POST">
     <input name="_method" type="hidden" value="delete">
     <div class="form-group">
