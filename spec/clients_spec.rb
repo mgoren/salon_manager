@@ -71,6 +71,15 @@ describe(Client) do
     end
   end
 
+  describe('#stylist') do
+    it("returns stylist (object) associated with this client") do
+      stylist1 = Stylist.new({ :name => "Mike" })
+      stylist1.save()
+      client1 = Client.new({ :name => "Marion", :stylist_id => stylist1.id() })
+      client1.save()
+      expect(client1.stylist()).to(eq(stylist1))
+    end
+  end
 
 
 

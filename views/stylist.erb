@@ -1,5 +1,5 @@
 <% stylist = Stylist.find(@stylist_id) %>
-<h1><%= stylist.name() %></h1>
+<h1>Stylist: <%= stylist.name() %></h1>
 
 <h3><%= stylist.name() %>'s clients:</h3>
 <% if stylist.clients().any?() %>

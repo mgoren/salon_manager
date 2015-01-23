@@ -62,8 +62,21 @@ post("/stylists/:id") do
   if returned_client_id != nil
     client = Client.find(returned_client_id.to_i())
     client.update({ :stylist_id => stylist_id })
-    url = "/stylists/" + stylist_id.to_s()
-    redirect(url)
   end
+  url = "/stylists/" + stylist_id.to_s()
+   redirect(url)
 end
+
+post("/clients/:id") do
+  client_id = params.fetch('id').to_i()
+  returned_stylist_id = params['stylist_id']
+  if returned_stylist_id != nil
+    client = Client.find(client_id)
+    client.update({ :stylist_id => returned_stylist_id.to_i() })
+  end
+  url = "/clients/" + client_id.to_s()
+  redirect(url)
+
+end
+
 

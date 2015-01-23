@@ -47,6 +47,10 @@ class Client
     end
   end
 
+  define_method(:stylist) do
+    Stylist.find(self.stylist_id())
+  end
+
 
 
 
