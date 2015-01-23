@@ -39,4 +39,15 @@
 <% end %>
   
 <hr>
+
+<form action="/stylists/<%= @stylist_id %>" method="POST">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <label class = "form-label" for="new_name">Change stylist name:</label>
+    <input class = "form-control" id="new_name" name="new_name" class="form-control" type="text" placeholder="Enter new name">
+  </div>
+    <button type="submit" class="button button-edit">Change Name</button>
+</form>
+
+<hr>
 <a href="/">Back</a>

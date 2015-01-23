@@ -4,7 +4,7 @@
   <h1>Client: <%= client.name() %></h1>
   <% if client.stylist_id() != 0 %>
     <% assigned_stylist = Stylist.find(client.stylist_id()) %>
-    <%= client.name() %>'s stylist: <a href="/stylists/<%= assigned_stylist.id() %>"><%= assigned_stylist.name() %></a>
+    <h3><%= client.name() %>'s stylist: <a href="/stylists/<%= assigned_stylist.id() %>"><%= assigned_stylist.name() %></a></h3>
     <% msg = "Change assigned stylist:" %>
   <% else %>
     Client is not currently assigned to a stylist!
@@ -30,7 +30,16 @@
   <button type="submit" class="button button-add">Assign Stylist</button>
 </form>
 
+<hr>
 
+<form action="/clients/<%= @client_id %>" method="POST">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <label class = "form-label" for="new_name">Change client name:</label>
+    <input class = "form-control" id="new_name" name="new_name" class="form-control" type="text" placeholder="Enter new name">
+  </div>
+    <button type="submit" class="button button-edit">Change Name</button>
+</form>
 
 <hr>
 <a href="/">Back</a>

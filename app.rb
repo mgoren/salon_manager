@@ -76,7 +76,28 @@ post("/clients/:id") do
   end
   url = "/clients/" + client_id.to_s()
   redirect(url)
+end
 
+patch("/clients/:id") do
+  client_id = params.fetch('id').to_i()
+  new_name = params['new_name']
+  new_name.strip!()
+  if new_name != ""
+    Client.find(client_id).update({ :name => new_name })
+  end
+  url = "/clients/" + client_id.to_s()
+  redirect(url)
+end
+
+patch("/stylists/:id") do
+  stylist_id = params.fetch('id').to_i()
+  new_name = params['new_name']
+  new_name.strip!()
+  if new_name != ""
+    Stylist.find(stylist_id).update({ :name => new_name })
+  end
+  url = "/stylists/" + stylist_id.to_s()
+  redirect(url)
 end
 
 
