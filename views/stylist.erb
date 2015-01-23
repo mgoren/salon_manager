@@ -1,33 +1,42 @@
 <% stylist = Stylist.find(@stylist_id) %>
-<h1>Stylist: <%= stylist.name() %></h1>
 
-<h3><%= stylist.name() %>'s clients:</h3>
-<% if stylist.clients().any?() %>
-  <ul>
-  <% stylist.clients().each() do |client| %>
-    <li><a href="/clients/<%= client.id() %>"><%= client.name() %></a></li>
+<div class="lists">
+  <h1>Stylist: <%= stylist.name() %></h1>
+
+  <h3><%= stylist.name() %>'s clients:</h3>
+  <% if stylist.clients().any?() %>
+    <ul>
+    <% stylist.clients().each() do |client| %>
+      <li><a href="/clients/<%= client.id() %>"><%= client.name() %></a></li>
+    <% end %>
+    </ul>
+  <% else %>
+    This stylist has no clients assigned.
   <% end %>
-  </ul>
-<% else %>
-  This stylist has no clients assigned.
-<% end %>
+</div>
 
-<hr>
-
-<form action="/stylists/<%= @stylist_id %>" method="POST">
-  <div class="form-group">
-    <label class = "form-label" for="client_id">Assign client to this stylist:</label>
-    <select class = "form-control" id="client_id" name="client_id">
-      <option value='' disabled selected style='display:none'>Please Choose</option>
-      <% Client.all().each() do |client| %>
-        <% if ! stylist.clients().include?(client) %>
-          <option value="<%= client.id() %>"><%= client.name() %></option>
+<% if Client.all() != stylist.clients() %>
+  <form action="/stylists/<%= @stylist_id %>" method="POST">
+    <div class="form-group">
+      <label class = "form-label" for="client_id">Assign client to this stylist:</label>
+      <select class = "form-control" id="client_id" name="client_id">
+        <option value='' disabled selected style='display:none'>Please Choose</option>
+        <% Client.all().each() do |client| %>
+          <% if ! stylist.clients().include?(client) %>
+            <option value="<%= client.id() %>"><%= client.name() %> 
+            <% if client.stylist_id != 0 %>
+              (reassign from <%= client.stylist().name() %> to <%=stylist.name() %>)
+            <% end %>
+            </option>
+          <% end %>
         <% end %>
-      <% end %>
-    </select>
-  </div>
-  <button type="submit" class="button button-add">Assign Client</button>
-</form>
-
+      </select>
+    </div>
+    <button type="submit" class="button button-add">Assign Client</button>
+  </form>
+<% else %>
+  All clients are assigned to this stylist!
+<% end %>
+  
 <hr>
 <a href="/">Back</a>

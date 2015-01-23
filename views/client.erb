@@ -1,19 +1,25 @@
 <% client = Client.find(@client_id) %>
-<h1>Client: <%= client.name() %></h1>
-<% if client.stylist_id() != 0 %>
-  <% assigned_stylist = Stylist.find(client.stylist_id()) %>
-  <%= client.name() %> is assigned to <a href="/stylists/<%= assigned_stylist.id() %>"><%= assigned_stylist.name() %></a>
-<% else %>
-  Client is not currently assigned to a stylist!
-<% end %>
 
-<hr>
+<div class="lists">
+  <h1>Client: <%= client.name() %></h1>
+  <% if client.stylist_id() != 0 %>
+    <% assigned_stylist = Stylist.find(client.stylist_id()) %>
+    <%= client.name() %>'s stylist: <a href="/stylists/<%= assigned_stylist.id() %>"><%= assigned_stylist.name() %></a>
+    <% msg = "Change assigned stylist:" %>
+  <% else %>
+    Client is not currently assigned to a stylist!
+    <% msg = "Choose stylist to assign:" %>
+  <% end %>
+</div>
 
 <form action="/clients/<%= @client_id %>" method="POST">
   <div class="form-group">
-    <label class = "form-label" for="stylist_id">Choose stylist for this client:</label>
+    <label class = "form-label" for="stylist_id"><%= msg %></label>
     <select class = "form-control" id="stylist_id" name="stylist_id">
       <option value='' disabled selected style='display:none'>Please Choose</option>
+      <% if client.stylist_id != 0 %>
+        <option value="NULL">[None]</option>
+      <% end %>
       <% Stylist.all().each() do |stylist| %>
         <% if stylist.id() != client.stylist_id() %>
           <option value="<%= stylist.id() %>"><%= stylist.name() %></option>
