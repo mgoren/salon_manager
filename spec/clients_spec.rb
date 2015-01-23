@@ -38,6 +38,14 @@ describe(Client) do
       test_client.update( {:name => "Risa"} )
       expect(test_client.name()).to(eq("Risa"))
     end
+    it("will add id correctly later, not during object creation") do
+      client1 = Client.new({ :name => "Marion" })
+      client1.save()
+      stylist1 = Stylist.new({ :name => "Mike" })
+      stylist1.save()
+      client1.update({ :stylist_id => stylist1.id() })
+      expect(client1.stylist_id()).to(eq(stylist1.id()))
+    end
   end
 
   describe("#delete") do
