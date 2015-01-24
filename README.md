@@ -40,7 +40,10 @@ License
 
 GNU GPL v2. Copyright 2015 Mike Goren
 
-DATABASE INFORMATION:
+
+Database Info:
+--------------
+
 In case the database_create script does not work, here is the database info:
 
 database name: salon
