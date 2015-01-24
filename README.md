@@ -42,6 +42,9 @@ GNU GPL v2. Copyright 2015 Mike Goren
 
 DATABASE INFORMATION:
 In case the database_create script does not work, here is the database info:
+
 database name: salon
+
 table: stylists (columns: id serial PRIMARY KEY, name varchar)
+
 table: clients (columns: id serial PRIMARY KEY, name varchar, stylist_id int)
