@@ -1,20 +1,24 @@
+<div id = "client">
+
 <% client = Client.find(@client_id) %>
 
 <div class="lists">
   <h1>Client: <%= client.name() %></h1>
   <% if client.stylist_id() != 0 %>
     <% assigned_stylist = Stylist.find(client.stylist_id()) %>
-    <h3><%= client.name() %>'s stylist: <a href="/stylists/<%= assigned_stylist.id() %>"><%= assigned_stylist.name() %></a></h3>
+    <h2>(assigned to <a href="/stylists/<%= assigned_stylist.id() %>"><%= assigned_stylist.name() %></a>)</h3>
     <% msg = "Change assigned stylist:" %>
+    <% button_msg = "Reassign Stylist" %>
   <% else %>
-    Client is not currently assigned to a stylist!
+    <h2 class="warning">(unassigned)</h2>
     <% msg = "Choose stylist to assign:" %>
+    <% button_msg = "Assign Stylist" %>
   <% end %>
 </div>
 
 <form action="/clients/<%= @client_id %>" method="POST">
   <div class="form-group">
-    <label class = "form-label" for="stylist_id"><%= msg %></label>
+    <label class = "form-label label-long" for="stylist_id"><%= msg %></label>
     <select class = "form-control" id="stylist_id" name="stylist_id">
       <option value='' disabled selected style='display:none'>Please Choose</option>
       <% if client.stylist_id != 0 %>
@@ -27,19 +31,18 @@
       <% end %>
     </select>
   </div>
-  <button type="submit" class="button button-add">Assign Stylist</button>
+  <button type="submit" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus"></span> <%= button_msg %></button>
 </form>
-
-<hr>
 
 <form action="/clients/<%= @client_id %>" method="POST">
   <input name="_method" type="hidden" value="patch">
   <div class="form-group">
-    <label class = "form-label" for="new_name">Change client name:</label>
+    <label class = "form-label label-long" for="new_name">Change client name:</label>
     <input class = "form-control" id="new_name" name="new_name" class="form-control" type="text" placeholder="Enter new name">
   </div>
-    <button type="submit" class="button button-edit">Change Name</button>
+  <button type="submit" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-warning-sign"></span> Change Name</button>
 </form>
 
-<hr>
-<a href="/">Back</a>
+<div class="back">
+  <a href="/" class="btn btn-default btn-sm button-back"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+</div>

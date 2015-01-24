@@ -1,6 +1,7 @@
 <h1>Salon Manager</h1>
 
 <div class="row lists">
+
   <div class = "col-md-6">
     <h3>Stylists:</h3>
     <% if Stylist.all().any?() %>
@@ -26,43 +27,38 @@
       Your salon has no clients!
     <% end %>
   </div>
-</div>
 
-<hr>
+</div>
 
 <form action="/stylists" method="POST">
   <div class="form-group">
     <label class = "form-label" for="stylist_name">Add stylist:</label>
-    <input class = "form-control" id="stylist_name" name="stylist_name" class="form-control" type="text" placeholder="Enter stylist name">
+    <input class = "form-control control-long" id="stylist_name" name="stylist_name" class="form-control" type="text" placeholder="Enter stylist name">
   </div>
-    <button type="submit" class="button button-add">Add Stylist</button>
+  <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus"></span> Add Stylist</button>
 </form>
 
 <form action="/clients" method="POST">
   <div class="form-group">
-    <label class = "form-label" for="client_name">Add Client:</label>
-    <input class = "form-control" id="client_name" name="client_name" class="form-control" type="text" placeholder="Enter client name">
+    <label class = "form-label" for="client_name">Add client:</label>
+    <input class = "form-control control-long" id="client_name" name="client_name" class="form-control" type="text" placeholder="Enter client name">
   </div>
-  <button type="submit" class="button button-add">Add Client</button>
+  <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus"></span> Add Client</button>
 </form>
-
-<% if Stylist.all().any?() || Client.all().any?() %>
-  <hr>
-<% end %>
 
 <% if Stylist.all().any?() %>
   <form action="/stylists" method="POST">
     <input name="_method" type="hidden" value="delete">
     <div class="form-group">
       <label class = "form-label" for="stylist_id">Delete stylist:</label>
-      <select class = "form-control" id="stylist_id" name="stylist_id">
+      <select class = "form-control control-long" id="stylist_id" name="stylist_id">
         <option value='' selected disabled style='display:none'>Please Choose</option>
         <% Stylist.all().each() do |stylist| %>
           <option value="<%= stylist.id() %>"><%= stylist.name() %></option>
         <% end %>
       </select>
     </div>
-    <button type="submit" class="button button-delete">Delete stylist!</button>
+    <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete stylist</button>
   </form>
 <% end %>
 
@@ -71,13 +67,13 @@
     <input name="_method" type="hidden" value="delete">
     <div class="form-group">
       <label class = "form-label" for="client_id">Delete client:</label>
-      <select class = "form-control" id="client_id" name="client_id">
+      <select class = "form-control control-long" id="client_id" name="client_id">
         <option value='' selected disabled style='display:none'>Please Choose</option>
         <% Client.all().each() do |client| %>
           <option value="<%= client.id() %>"><%= client.name() %></option>
         <% end %>
       </select>
     </div>
-    <button type="submit" class="button button-delete">Delete client!</button>
+    <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete client</button>
   </form>
 <% end %>
